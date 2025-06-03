@@ -11,12 +11,19 @@ import {
 import type {LinksFunction} from "@remix-run/node";
 
 import appStylesHref from "./app.css?url";
-import { getContacts } from "./data";
+import { createEmptyContact, getContacts } from "./data";
 
 export const loader = async () => {
   // Simulate fetching contacts from a database or API
   const contacts = await getContacts();
   return { contacts };
+};
+
+export const action = async () => {
+  // Simulate creating a new contact
+  const newContact = createEmptyContact();
+  // In a real application, you would save the new contact to a database here
+  return { newContact };
 };
 
 export const links: LinksFunction = () => {
@@ -53,14 +60,6 @@ export default function App() {
             </Form>
           </div>
           <nav>
-            <ul>
-              <li>
-                <Link to={`/contacts/1`}>Your Name</Link>
-              </li>
-              <li>
-                <Link to={`/contacts/2`}>Your Friend</Link>
-              </li>
-            </ul>
                         {contacts.length ? (
               <ul>
                 {contacts.map((contact) => (
